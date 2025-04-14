@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Passaporto Digitale Finestra Alpha</title>
+
+    <!-- PWA -->
+    <link rel="manifest" href="manifest.json">
+    <link rel="icon" href="icon-192.png">
+    <meta name="theme-color" content="#0073e6">
+    <script>
+      if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('service-worker.js');
+      }
+    </script>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 800px;
+            margin: auto;
+            background: #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .image {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .image img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+        }
+        .description {
+            margin-bottom: 20px;
+        }
+        .attributes {
+            list-style-type: none;
+            padding: 0;
+        }
+        .attributes li {
+            margin-bottom: 10px;
+            padding: 10px;
+            background: #f1f1f1;
+            border-radius: 4px;
+        }
+        .link {
+            text-align: center;
+            margin-top: 20px;
+        }
+        .link a {
+            font-size: 16px;
+            color: #0073e6;
+            text-decoration: none;
+        }
+        .link a:hover {
+            text-decoration: underline;
+        }
+        #install-button {
+            display: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #0073e6;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Passaporto Digitale del Prodotto</h1>
+        <div style="text-align:center;">
+            <button id="install-button">📲 Installa l'app</button>
+        </div>
+        <div class="image">
+            <img src="https://gateway.pinata.cloud/ipfs/bafybeify5ckqajf5hqg6ejishkiytpcamw6ktcvxpzteb3cerbegjckk7q" alt="CLT Finestre">
+        </div>
+        <div class="description">
+            <p><strong>Descrizione:</strong></p>
+            <p>Finestra in Alluminio a taglio termico.</p>
+        </div>
+        <ul class="attributes">
+            <li><strong>Origine:</strong> Italia</li>
+            <li><strong>Struttura del profilo:</strong> Sistema in alluminio a taglio termico...</li>
+            <li><strong>Taglio termico:</strong> ...</li>
+            <li><strong>Vetratura:</strong> ...</li>
+            <li><strong>Guarnizioni:</strong> ...</li>
+            <li><strong>Ferramenta:</strong> ...</li>
+            <li><strong>Trasmittanza termica del serramento (Uw):</strong> Fino a Uw = 1.0 W/m²K</li>
+        </ul>
+        <div class="link">
+            <p>Scopri il tuo NFT su Rarible:</p>
+            <a href="https://rarible.com/token/polygon/0xb3ca6e2394f915f7c1fca8972c47ba2283ac75ac:1" target="_blank">Visualizza NFT su Rarible</a>
+        </div>
+    </div>
+
+    <script>
+      let deferredPrompt;
+      const installBtn = document.getElementById("install-button");
+
+      window.addEventListener("beforeinstallprompt", (e) => {
+        e.preventDefault();
+        deferredPrompt = e;
+        installBtn.style.display = "inline-block";
+      });
+
+      installBtn.addEventListener("click", () => {
+        installBtn.style.display = "none";
+        deferredPrompt.prompt();
+        deferredPrompt.userChoice.then((choiceResult) => {
+          if (choiceResult.outcome === "accepted") {
+            console.log("Utente ha installato la PWA");
+          } else {
+            console.log("Utente ha rifiutato l'installazione");
+          }
+          deferredPrompt = null;
+        });
+      });
+    </script>
+</body>
+</html>
